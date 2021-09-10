@@ -1,5 +1,7 @@
 var express = require('express');
+const userSignupHelpers = require('../helpers/user-signup-helpers');
 var router = express.Router();
+var userHelpers = require('../helpers/user-signup-helpers')
 
 var products=[
   {
@@ -54,8 +56,33 @@ router.get('/', function(req, res, next) {
 
 // getting user login page
 router.get('/login',(req,res)=>{
-  console.log("1.User login page")
+  console.log("1.User login page");
   res.render('user/user-login',{user:false})
 })
+
+//posting login details of the users to the database
+router.post('/login',(req,res)=>{
+  console.log(req.body)
+  console.log("1.3 Checking the details of the user");
+  userHelpers.doLogin(req.body);
+  res.send("Haiiiiiiiiiiii ")
+})
+
+// Getting page for user's signUp
+router.get('/signup',(req,res)=>{
+  console.log("1.1 Users signup Page")
+  res.render('user/user-signup',{user:false})
+})
+
+// Posting Users signed up data to database
+router.post('/signup',(req,res)=>{
+
+userHelpers.doSignup(req.body).then((response)=>{
+  console.log("1.2 Posting users Signed up data");
+  console.log(response);
+})
+})
+
+
 
 module.exports = router;
