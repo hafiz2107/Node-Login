@@ -1,0 +1,39 @@
+0 info it worked if it ends with ok
+1 verbose cli [
+1 verbose cli   'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'express-',
+1 verbose cli   'handlebars'
+1 verbose cli ]
+2 info using npm@6.14.15
+3 info using node@v14.17.6
+4 verbose npm-session d3b55e00331bc2f2
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 http fetch GET 200 https://registry.npmjs.org/handlebars 410ms
+8 http fetch GET 200 https://registry.npmjs.org/handlebars/-/handlebars-4.7.7.tgz 248ms
+9 silly pacote tag manifest for handlebars@latest fetched in 667ms
+10 http fetch GET 404 https://registry.npmjs.org/express- 1325ms
+11 http fetch GET 404 https://registry.npmjs.org/express- 1106ms
+12 silly fetchPackageMetaData error for express-@latest 404 Not Found - GET https://registry.npmjs.org/express- - Not found
+13 timing stage:rollbackFailedOptional Completed in 0ms
+14 timing stage:runTopLevelLifecycles Completed in 2653ms
+15 verbose stack Error: 404 Not Found - GET https://registry.npmjs.org/express- - Not found
+15 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-fetch\check-response.js:117:15
+15 verbose stack     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+16 verbose statusCode 404
+17 verbose pkgid express-@latest
+18 verbose cwd E:\New one
+19 verbose Windows_NT 10.0.19042
+20 verbose argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "express-" "handlebars"
+21 verbose node v14.17.6
+22 verbose npm  v6.14.15
+23 error code E404
+24 error 404 Not Found - GET https://registry.npmjs.org/express- - Not found
+25 error 404
+26 error 404 'express-@latest' is not in the npm registry.
+27 error 404 You should bug the author to publish it (or use the name yourself!)
+28 error 404 Note that you can also install from a
+29 error 404 tarball, folder, http url, or git url.
+30 verbose exit [ 1, true ]

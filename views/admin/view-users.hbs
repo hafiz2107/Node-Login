@@ -1,0 +1,28 @@
+
+    <div class="container">
+           <div class="row ml-auto">
+        <a href="/admin/add-user" class="btn"><button class="btn btn-primary">Add User</button></a>
+    </div>
+ 
+     <table class="table">
+  <thead class="thead-dark bg-dark text-light">
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each data}}
+    <tr>
+      <th scope="row"> {{@index}}</th>
+      <td>{{this.adminaddedname}}</td>
+      <td>{{this.adminaddedemail}}</td>
+      <td>{{this.adminaddedpass}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+    </div>
