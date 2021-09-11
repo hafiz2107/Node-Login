@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 const userSignupHelpers = require('../helpers/user-signup-helpers');
 var router = express.Router();
@@ -50,13 +51,15 @@ var products=[
 
 // Dispalying Users Home page
 router.get('/', function(req, res, next) {
+  let userSession = req.session.user
+  console.log(user)
   console.log("1.getting User home page")
-  res.render('user/user-home',{products,admin:false})
+  res.render('user/user-home',{products,admin:false,userSession})
 });
 
-// getting user login page
+// getting user login page 
 router.get('/login',(req,res)=>{
-  console.log("1.User login page");
+  console.log("1.2 User login page");
   res.render('user/user-login',{user:false})
 })
 
@@ -64,8 +67,15 @@ router.get('/login',(req,res)=>{
 router.post('/login',(req,res)=>{
   console.log(req.body)
   console.log("1.3 Checking the details of the user");
-  userHelpers.doLogin(req.body);
-  res.send("Haiiiiiiiiiiii ")
+  userSignupHelpers.doLogin(req.body).then((response)=>{
+    if(response.status){
+      req.session.loggedIn = true
+      req.session.user = response.user
+      res.redirect('/')
+    }else{
+      res.redirect('/login')
+    }
+  })
 })
 
 // Getting page for user's signUp

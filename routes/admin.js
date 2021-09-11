@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 // getting the page to add new users
 router.get('/add-user',(req,res)=>{
   console.log("2.2.getting Add-User page");
-  res.render('admin/add-user',{admin:true});
+  res.render('admin/add-user',{admin:false});
 })
 
 // Posting new users uploded by admin

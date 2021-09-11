@@ -21,17 +21,18 @@ module.exports={
 
             let logInStatus = false;
             let response = {}
-            let user = await db.get().collection(collections.NEW_USER).findOne({email:userData.your_name})
-            console.log("The user is : "+user)
-
+            let user = await db.get().collection(collections.NEW_USER).findOne({name:userData.your_name})
+            console.log("At Do login helper")
+            console.log(user);
             if(user){
-                bcrypt.compare(userData.pass,user.password).then((status)=>{
-console.log("Comparing"+userData.pass+" and "+user.password)
+                console.log("At if user"+user);
+                console.log("Comparing  "+userData.your_pass+" and "+user.pass)
+                bcrypt.compare(userData.your_pass,user.pass).then((status)=>{
 
                     if(status){
-                        console.log("Login success")
+                        console.log("Login Success!!");
                         response.user=user
-                        response.status = true
+                        response.status=true
                         resolve(response)
                     }
                     else{
@@ -40,7 +41,8 @@ console.log("Comparing"+userData.pass+" and "+user.password)
                     }
                 })
             }else{
-                console.log("LOGIN SUCCESS");
+                console.log("LOGIN Failed");
+                resolve({status:false})
             }
         })
     }
