@@ -1,8 +1,10 @@
 const { response } = require('express');
 var express = require('express');
+const { getAllUsers } = require('../helpers/user-helpers');
 const userSignupHelpers = require('../helpers/user-signup-helpers');
 var router = express.Router();
 var userHelpers = require('../helpers/user-signup-helpers')
+
 
 var products=[
   {
@@ -49,18 +51,35 @@ var products=[
   },
 ]
 
+
 // Dispalying Users Home page
 router.get('/', function(req, res, next) {
-  let userSession = req.session.user
-  console.log(user)
-  console.log("1.getting User home page")
-  res.render('user/user-home',{products,admin:false,userSession})
+  console.log("1 Getting user home page");
+  // Getting User session
+  var userSession = req.session.user
+  
+  
+  userHelpers=getAllUsers().then((users)=>{
+    // console.log(users)
+    console.log("1.getting User home page")
+    res.render('user/user-home',{products,user:true,userSession})
+  })
+  
 });
 
 // getting user login page 
 router.get('/login',(req,res)=>{
   console.log("1.2 User login page");
-  res.render('user/user-login',{user:false})
+  
+  if(req.session.loggedIn){
+    console.log("Redirecting to home page when hitting back")
+    res.redirect('/')
+  }else{
+    console.log("Rendering to login page if not logged in");
+    res.render('user/user-login',{user:false,loginErr:req.session.loggedInErr})
+    req.session.loggedInErr=false
+  }
+  
 })
 
 //posting login details of the users to the database
@@ -68,11 +87,13 @@ router.post('/login',(req,res)=>{
   console.log(req.body)
   console.log("1.3 Checking the details of the user");
   userSignupHelpers.doLogin(req.body).then((response)=>{
+    
     if(response.status){
       req.session.loggedIn = true
       req.session.user = response.user
       res.redirect('/')
     }else{
+      req.session.loggedInErr=true  
       res.redirect('/login')
     }
   })
@@ -84,15 +105,22 @@ router.get('/signup',(req,res)=>{
   res.render('user/user-signup',{user:false})
 })
 
+
 // Posting Users signed up data to database
 router.post('/signup',(req,res)=>{
-
-userHelpers.doSignup(req.body).then((response)=>{
+console.log("Posting Users signed up data to database")
+userSignupHelpers.doSignup(req.body).then((response)=>{
   console.log("1.2 Posting users Signed up data");
   console.log(response);
+  res.redirect('/login')
 })
 })
 
-
+// Logging out
+router.get('/logout',(req,res)=>{
+  console.log("Logging out");
+  req.session.destroy()
+  res.redirect('/')
+})
 
 module.exports = router;

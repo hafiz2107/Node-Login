@@ -1,7 +1,9 @@
+const { response } = require('express');
 var express = require('express');
 const userHelpers = require('../helpers/user-helpers');
 var router = express.Router();
 var userHelper = require('../helpers/user-helpers')
+var objectId = require('mongodb').ObjectId
 
 
 /* GET admin's home page. */
@@ -29,4 +31,24 @@ router.post('/add-user',(req,res)=>{
   })
 })
 
+
+router.get('/delete-user/:id',(req,res)=>{
+  // Getting ID Of a document
+  console.log("Getting delete user and calling the fuction deleteUser");
+  let user_id=req.params.id;
+  console.log(user_id);
+
+  // Calling User helper function
+  userHelper.deleteUser(user_id).then((response)=>{
+    console.log("Deleted user and redirecting to admin home page");
+
+  
+    if(response.acknowledged&&response.deletedCount>0){
+    res.redirect('/admin')
+    }else{
+      console.log("Something happened")
+    }
+
+  })
+})
 module.exports = router;

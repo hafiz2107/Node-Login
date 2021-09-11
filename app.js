@@ -29,7 +29,9 @@ app.use(session({
   secret:"nothing",
   cookie:{
     maxAge:50000
-  }
+  },
+  resave:false,
+  saveUninitialized:false,
 }))
 
 db.connect((err)=>{

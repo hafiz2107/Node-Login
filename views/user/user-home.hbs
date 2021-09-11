@@ -1,6 +1,4 @@
 
-
- 
 <section>
     
     <div class=" container">
@@ -12,7 +10,14 @@
     <h4 class="card-title">{{item}}</h4>
     <h5 class="card-text">{{price}}</h5>
     <p class="card-text">{{des}}</p>
-    <a href="/login" class="btn btn-primary">Add to cart</a>
+
+      
+      {{#if ../userSession}}
+        <a href="" class="btn btn-primary" onclick="myalert()">Add to cart</a>
+        {{else}}
+        <a href="/login" class="btn btn-primary">Add to cart</a>    
+      {{/if}}
+      
   </div>
   </div>
     {{/each}}
@@ -21,4 +26,9 @@
   
 </section>
 
+<script>
+          function myalert() {
+            alert("Item added successfully !!");
+        }
+</script>
 

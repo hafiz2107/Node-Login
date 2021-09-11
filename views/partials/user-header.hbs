@@ -13,9 +13,14 @@
 
 
       </ul>
-      <form class="d-flex" action="/">
+      <form class="d-flex" action="/logout">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="display: none;">
-        <button class="btn btn-outline-dark btn-light" type="submit">Logout</button>
+        {{#if userSession}}
+          <h3 style="color: white;margin-right: 20px;">Welcome, {{userSession.name}}</h3>
+          <button class="btn btn-outline-dark btn-light" type="submit"><a href=""></a>Logout</button> 
+          
+           {{/if}}
+        
       </form>
 
     </div>

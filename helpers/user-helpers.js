@@ -1,5 +1,6 @@
 var db= require('../config/connection')
-var collection = require('../config/collections')
+var collection = require('../config/collections');
+const { ObjectId } = require('bson');
 
 module.exports = {
 
@@ -18,5 +19,16 @@ module.exports = {
 
             resolve(user)
         })
+    },
+    deleteUser:(userId)=>{
+        console.log("Deleting User from database");
+        return new Promise((resolve,reject)=>{
+           
+            db.get().collection(collection.USER).deleteOne({_id:ObjectId(userId)}).then((response)=>{
+                console.log(response)
+                resolve(response)
+            })
+        })
     }
 }
+
