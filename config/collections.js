@@ -1,4 +1,4 @@
 module.exports={
-    USER:'new_user',
+    USER:'newest_user',
     NEW_USER:'newest_user'
 }

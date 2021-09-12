@@ -84,6 +84,7 @@ router.get('/login',(req,res)=>{
 
 //posting login details of the users to the database
 router.post('/login',(req,res)=>{
+  console.log("Login user details : ");
   console.log(req.body)
   console.log("1.3 Checking the details of the user");
   userSignupHelpers.doLogin(req.body).then((response)=>{
