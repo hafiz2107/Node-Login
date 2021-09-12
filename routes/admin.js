@@ -5,21 +5,70 @@ var router = express.Router();
 var userHelper = require('../helpers/user-helpers')
 var objectId = require('mongodb').ObjectId
 
+const admin = {
+  user : 'admin',
+  pass:112233
+}
 
 /* GET admin's home page. */
 router.get('/', function(req, res, next) {
+  
+  if(req.session.admin){
+  console.log('1');
   console.log("2.getting Admin home page")
 // getting data from user helper the database and displaying it on the admins's Dashboard
-  userHelpers.getAllUsers().then((data)=>{
+    userHelpers.getAllUsers().then((data)=>{
     console.log("2.4 Getting datas from the database and displaying ")
     res.render('admin/view-users', {admin:true,data,title:"Admin Home"} );
   })
+}
+else{
+  // Going to login page if no session is there
+  console.log("In else case");
+  res.render('admin/admin-sign',{loginError:req.session.error,title:"Admin Login"})
+  req.session.error = false;
+}
 });
+
+// Posting user login page
+router.post('/adminLogin',(req,res)=>{
+  console.log(req.body)
+  if(req.body.your_name == admin.user && req.body.your_pass == admin.pass){
+    console.log("Comparing");
+    req.session.adminDetails = admin
+    req.session.admin = true
+    res.redirect('/admin')
+  }
+  else{
+    req.session.error = true
+    res.redirect('/admin')
+  }
+})
 
 // getting the page to add new users
 router.get('/add-user',(req,res)=>{
+  if(req.session.admin){
   console.log("2.2.getting Add-User page");
   res.render('admin/add-user',{admin:false,title:"Add User"});
+}else{
+  res.redirect('/admin')
+}
+})
+
+router.get('/add-cancel',(req,res)=>{
+  if(req.session.admin){
+    res.redirect('/admin')
+  }else{
+    res.redirect('/admin')
+  }
+})
+
+router.get('/edit-cancel',(req,res)=>{
+  if(req.session.admin){
+    res.redirect('/admin')
+  }else{
+    res.redirect('/admin')
+  }
 })
 
 // Posting new users uploded by admin
@@ -67,5 +116,10 @@ console.log("Posting the edited details of the user");
   userHelpers.updateUser(req.params.id,req.body).then(()=>{
     res.redirect('/admin')
   })
+})
+
+router.get('/adminLogout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/admin');
 })
 module.exports = router;

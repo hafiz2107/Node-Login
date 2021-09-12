@@ -109,8 +109,8 @@ router.get('/signup',(req,res)=>{
 
 // Posting Users signed up data to database
 router.post('/signup',(req,res)=>{
-console.log("Posting Users signed up data to database")
-userSignupHelpers.doSignup(req.body).then((response)=>{
+  console.log("Posting Users signed up data to database")
+  userSignupHelpers.doSignup(req.body).then((response)=>{
   console.log("1.2 Posting users Signed up data");
   console.log(response);
   res.redirect('/login')

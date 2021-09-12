@@ -6,19 +6,16 @@
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
-                        <a href="/signup" class="signup-image-link">Create an account</a>
-                    </div>
+
 
                     <div class="signin-form">
-                        <h2 class="form-title">Log In</h2>
+                        <h2 class="form-title">Admin Login</h2>
 
-                        {{#if loginErr}}
+                        {{#if loginError}}
                             <p id="loginErr" style="color: red;">Invalid username or password !!</p>
                         {{/if}}
 
-                        <form action="/login" method="POST" class="register-form" id="login-form">
+                        <form action="admin/adminLogin" method="POST" class="register-form" id="login-form">
                             <div class="form-group">
                                 <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="your_name" id="User_name" placeholder="Your Name"/>
@@ -59,7 +56,6 @@
        })
     </script>
 
-
-    <!-- JS -->
+    {{!-- <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script> --}}

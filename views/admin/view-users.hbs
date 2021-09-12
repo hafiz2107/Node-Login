@@ -1,10 +1,12 @@
 
     <div class="container">
            <div class="row ml-auto">
-        <a href="/admin/add-user" class="btn"><button class="btn btn-primary">Add User</button></a>
+        <a href="/admin/add-user" class="btn" id="bn"><button class="btn btn-primary">Add User</button></a>
     </div>
- 
-     <table class="table">
+     <center>
+    <div  class="no-results text-danger" style="display:none;font-size: x-large;font-weight: bolder;">No results found !!</div>
+    </center>
+     <table class="table" id="tb">
   <thead class="thead-dark bg-dark text-light">
     <tr>
       <th scope="col">No</th>
@@ -13,7 +15,8 @@
       <th scope="col">Action</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="myTable">
+
       {{#each data}}
     <tr>
       <th scope="row" class="create_index"> {{@index}}</th>
@@ -33,3 +36,27 @@
 
     </div>
 
+<script>
+
+
+var $block = $('.no-results');
+$("#myInput").keyup(function() {
+    var val = $(this).val().toLowerCase();
+    var isMatch = false;
+
+    $("#myTable tr").each(function(i) {
+        var content = $(this).html();
+        if(content.toLowerCase().indexOf(val) == -1) {
+           $(this).hide();
+            
+           } 
+        else {
+            isMatch = true;
+            $(this).show();
+            
+          }
+    });
+
+    $block.toggle(!isMatch);
+});
+</script>

@@ -14,8 +14,14 @@
 
       </ul>
       <form class="d-flex" action="/">
+      {{!-- Search --}}
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2 me-3" type="search" placeholder="Search" aria-label="Search" id="myInput">
+      
+    </form>
+      {{!-- search end --}}
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="display: none;">
-        <button class="btn btn-outline-dark btn-light" type="submit">Logout</button>
+        <a href="admin/adminLogout" class="btn btn-outline-dark btn-light">Logout</a>
       </form>
 
     </div>

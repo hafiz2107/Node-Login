@@ -26,7 +26,7 @@
                             </div>
                             
                             <div class="form-group form-button">
-                                <input type="submit" id="signup" class="form-submit" value="Signup"/>
+                                <input type="submit" id="signup" class="form-submit" value="Signup"/ onclick="validatePassword()">
                             </div>
                         </form>
 
@@ -40,3 +40,31 @@
             </div>
         </section>
 </div>
+
+<script>
+    function validatePassword() {
+        var validator = $("#register-form").validate({
+            rules: {
+                pass: "required",
+                minlength :5,
+                re_pass: {
+                    equalTo: "#pass"
+                },
+                name:{
+                    required:true,
+                    minlength:3
+                },
+                email:{
+                    required:true,
+                    minlength:7,
+                },
+
+
+            },
+            messages: {
+                pass: " Enter Password",
+                re_pass: "Passwords are not same"
+            }
+        });
+    }
+</script>
