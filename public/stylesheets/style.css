@@ -1,7 +1,19 @@
 #re_pass-error{
   color: #e72734;
 }
-
+.main{
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
 
 /* @extend display-flex; */
 display-flex, .display-flex, .display-flex-center, .signup-content, .signin-content, .social-login, .socials {

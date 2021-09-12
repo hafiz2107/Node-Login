@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 // getting data from user helper the database and displaying it on the admins's Dashboard
     userHelpers.getAllUsers().then((data)=>{
     console.log("2.4 Getting datas from the database and displaying ")
-    res.render('admin/view-users', {admin:true,data,title:"Admin Home"} );
+    res.render('admin/view-users', {admin:true,data,title:"Admin Home",search:true} );
   })
 }
 else{
@@ -49,12 +49,12 @@ router.post('/adminLogin',(req,res)=>{
 router.get('/add-user',(req,res)=>{
   if(req.session.admin){
   console.log("2.2.getting Add-User page");
-  res.render('admin/add-user',{admin:false,title:"Add User"});
+  res.render('admin/add-user',{admin:true,title:"Add User",search:false});
 }else{
   res.redirect('/admin')
 }
 })
-
+// Cancel button for cancel adding
 router.get('/add-cancel',(req,res)=>{
   if(req.session.admin){
     res.redirect('/admin')
@@ -63,6 +63,7 @@ router.get('/add-cancel',(req,res)=>{
   }
 })
 
+// cancelling Edit
 router.get('/edit-cancel',(req,res)=>{
   if(req.session.admin){
     res.redirect('/admin')
@@ -81,7 +82,6 @@ router.post('/add-user',(req,res)=>{
 })
 
 // deleting user
-
 router.get('/delete-user/:id',(req,res)=>{
   // Getting ID Of a document
   console.log("Getting delete user and calling the fuction deleteUser");
@@ -107,7 +107,7 @@ router.get('/edit-user/:id',async(req,res)=>{
   console.log("Getting the user that wants to be edited");
   let user =await userHelpers.getUserDetails(req.params.id)
   console.log(user);
-  res.render('admin/edit-user',{user,admin:true,title:"Edit user"})
+  res.render('admin/edit-user',{user,admin:true,title:"Edit user",search:false})
 })
 
 // Posting the edited details of the user
@@ -118,6 +118,7 @@ console.log("Posting the edited details of the user");
   })
 })
 
+// Logout
 router.get('/adminLogout',(req,res)=>{
   req.session.destroy()
   res.redirect('/admin');
