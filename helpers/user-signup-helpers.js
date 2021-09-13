@@ -7,13 +7,32 @@ console.log("At user sign up helper")
 
 module.exports={
     doSignup:(userData)=>{
+        console.log("At do signup function");
         return new Promise(async(resolve,reject)=>{
 
+            var allDatasUser=await db.get().collection(collections.USER).findOne({name:userData.name}) 
+          
+            console.log("All datasss : ");
+            console.log(allDatasUser);
+            console.log("user DAta");
+            console.log(userData.name);
+
+            if(allDatasUser == null)
+            {
+                allDatasUser = 'm';
+            }
+
+            if(allDatasUser.name == userData.name){
+                console.log("At if case  in add user");
+                resolve(false)
+            }
+            else{
         userData.pass=await bcrypt.hash(userData.pass,10)
         var details = await db.get().collection(collections.USER).insertOne(userData)
         var data = await db.get().collection(collections.USER).findOne({_id:details.insertedId}) 
         resolve(data)
-        })  
+            }
+        })
     },
     
     doLogin:(userData)=>{

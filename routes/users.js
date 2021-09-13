@@ -102,8 +102,13 @@ router.post('/login',(req,res)=>{
 
 // Getting page for user's signUp
 router.get('/signup',(req,res)=>{
+  if(req.session.loggedIn)
+  {
+    res.redirect('/')
+  }else{
   console.log("1.1 Users signup Page")
-  res.render('user/user-signup',{user:false})
+  res.render('user/user-signup',{user:false,title:'SignUp'})
+}
 })
 
 
@@ -111,9 +116,17 @@ router.get('/signup',(req,res)=>{
 router.post('/signup',(req,res)=>{
   console.log("Posting Users signed up data to database")
   userSignupHelpers.doSignup(req.body).then((response)=>{
-  console.log("1.2 Posting users Signed up data");
-  console.log(response);
-  res.redirect('/login')
+    console.log(response);
+
+  if(response){
+    res.redirect('/login')
+  }
+  else{
+    console.log("1.2 Posting users Signed up data");
+    usernameInvalid = true;
+    res.render('user/user-signup',{user:false,title:"Sign Up",usernameInvalid})
+}
+
 })
 })
 

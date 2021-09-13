@@ -7,11 +7,29 @@ const { ObjectId } = require('bson');
 module.exports = {
 
     addUser:(user)=>{
+ 
         return new Promise(async(resolve,reject)=>{
+            var allDatas =await db.get().collection(collection.USER).findOne({name:user.name}) 
+
+            // assigning a value because it is null
+            if(allDatas == null)
+            {
+                allDatas = 'm';
+            }
+
+            // console.log(allDatas,user.name);
+            if(allDatas.name == user.name){
+                console.log("At if case  in add user");
+                resolve(false)
+            }
+            else{
+                console.log("At else CAse in add user");
             user.pass = await bcrypt.hash(user.pass,10)
             var details = await db.get().collection(collection.USER).insertOne(user)
             var data = await db.get().collection(collection.USER).findOne({_id:details.insertedId}) 
             resolve(data)
+        }
+            
         })
     },
         // console.log(user);

@@ -11,6 +11,14 @@
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="User's Name"/>
+                                
+                                {{!-- Checking user name is already taken or not  --}}
+
+                                {{#if userNameInvalid}}
+                                  <p style="color: red;">Sorry the username is already taken</p>
+                                {{/if}}
+
+
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -41,33 +49,6 @@
         </section>
 </div>
 
-<script>
-    function validatePassword() {
-        var validator = $("#register-form").validate({
-            rules: {
-                pass: "required",
-                minlength :5,
-                re_pass: {
-                    equalTo: "#pass"
-                },
-                name:{
-                    required:true,
-                    minlength:3
-                },
-                email:{
-                    required:true,
-                    minlength:7,
-                },
-
-
-            },
-            messages: {
-                pass: " Enter Password",
-                re_pass: "Passwords are not same"
-            }
-        });
-    }
-</script>
 
 <style>
     .main{
@@ -582,3 +563,40 @@ display-flex, .display-flex, .display-flex-center, .signup-content, .signin-cont
   
   /*# sourceMappingURL=style.css.map */
   </style>
+<script>
+     function validatePassword() {
+        var validator = $("#register-form").validate({
+            rules: {
+                pass:{
+                required:true,
+                minlength :6,
+                },
+                re_pass: {
+                    equalTo: "#pass",
+                },
+                name:{
+                    required:true,
+                    minlength:3,
+                },
+                email:{
+                    email:true,
+                    required:true,
+                    minlength:7,
+                },
+
+
+            },
+            messages: {
+                email:{
+                  email:"Please enter a valid email"
+                },
+                pass: {
+                  required:"Enter Password",
+                  minlength:"Enter atleast 6 characters",
+                  },
+                re_pass: "Passwords are not same",
+            }
+        });
+    }
+     
+</script>

@@ -11,6 +11,10 @@
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="name" id="name" placeholder="Your Name"/>
+
+                                {{#if usernameInvalid}}
+                                    <p style="color: red;">User name already taken</p>
+                                {{/if}}
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -42,17 +46,19 @@
 </div>
 
 <script>
-    function validatePassword() {
+     function validatePassword() {
         var validator = $("#register-form").validate({
             rules: {
-                pass: "required",
-                minlength :5,
+                pass:{
+                required:true,
+                minlength :6,
+                },
                 re_pass: {
-                    equalTo: "#pass"
+                    equalTo: "#pass",
                 },
                 name:{
                     required:true,
-                    minlength:3
+                    minlength:3,
                 },
                 email:{
                     required:true,
@@ -62,8 +68,11 @@
 
             },
             messages: {
-                pass: " Enter Password",
-                re_pass: "Passwords are not same"
+                pass: {
+                  required:"Enter Password",
+                  minlength:"Enter atleast 6 characters",
+                  },
+                re_pass: "Passwords are not same",
             }
         });
     }
